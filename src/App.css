@@ -1,0 +1,119 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+.todolist {
+  font-size: 40px;
+  padding: 20px;
+  background-color: #07b154;
+  color: #ffffff;
+  border-radius: 50%;
+}
+.todolist:hover {
+  color: #000;
+}
+.toolbar {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  gap: 20px;
+}
+.toolbar * {
+  color: #fff;
+}
+.todoform {
+  display: flex;
+  width: 410px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.todoform input {
+  width: 320px;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.todoform button {
+  width: 90px;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+}
+.ant-form-item {
+  margin-bottom: 0px;
+}
+.todosearch {
+  position: fixed;
+  top: 0px;
+  right: 10px;
+  display: flex;
+}
+.navlink {
+  font-size: 20px;
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  color: #fff;
+}
+.navlink:hover {
+  color: #000;
+}
+.editform{
+  display: flex;
+}
+.display {
+  display: block;
+}
+.hidden {
+  display: none;
+}
+.btn-display {
+  display:flex; 
+  gap:20px;
+}
