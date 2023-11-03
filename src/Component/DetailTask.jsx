@@ -79,6 +79,11 @@ export default function DetailTask(){
                         <Input></Input>
                     </Form.Item>
                     <Button htmlType="submit" type="primary">Cập nhật</Button>
+                    <Button onClick={()=>{
+                        form.setFieldsValue({
+                            title:""
+                        })
+                    }}>Reset</Button>
                 </Form>
             </>
             )}
