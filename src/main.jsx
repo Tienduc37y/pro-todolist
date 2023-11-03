@@ -12,11 +12,16 @@ import './App.css'
 import Signin from './Component/Login/Signin'
 import PrivateSignin from './Component/Login/PrivateSignin'
 import Home from './Component/Home'
+import DetailTask from './Component/DetailTask.jsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
     element : <Home></Home>
+  },
+  {
+    path: "/task/:id",
+    element : <DetailTask></DetailTask>
   },
   {
     path: "/todolist",
