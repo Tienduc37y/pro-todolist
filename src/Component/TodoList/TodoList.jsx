@@ -203,9 +203,20 @@ export default function Todo(){
                                                 setEdit(index)
                                                 setId(item.id)
                                             }}>Sửa</Button>
-                                            <Button onClick={()=>{
-                                                DeleteTask(item.id)
-                                            }}>Xóa</Button>
+                                            {edit !== index ?
+                                            (
+                                                <>
+                                                    <Button onClick={()=>{
+                                                    }}>Xóa</Button>
+                                                </>
+                                            ) :
+                                            (
+                                                <>
+                                                    <Button onClick={()=>{
+                                                        DeleteTask(item.id)
+                                                    }}>Xóa</Button>
+                                                </>
+                                            )}
                                         </div>
                                     </>
                                     
