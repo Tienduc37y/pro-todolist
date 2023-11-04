@@ -21,7 +21,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/task/:id",
-    element : <DetailTask></DetailTask>
+    element : (
+      <PrivateRouter>
+        <DetailTask></DetailTask>
+      </PrivateRouter>
+      )
   },
   {
     path: "/todolist",

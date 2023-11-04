@@ -16,7 +16,8 @@ export default function DetailTask(){
         })
         .then((res)=>{
             console.log(res.data.data)
-            setListTask(res.data.data)
+            var dataList = res.data.data
+            setListTask(dataList)
         })
     },[])
     function onFinish(values){
@@ -38,11 +39,7 @@ export default function DetailTask(){
             console.log(dataEdit)
             setTimeout(()=>{
                 isEdit(true)
-            },1000)
-            
-        })
-        .catch((err)=>{
-            console.log(err)
+            },1000)        
         })
     }
     return (
@@ -61,6 +58,7 @@ export default function DetailTask(){
                     </ul>
                     <br />
                 </div>
+                {/* <img src={`https://backoffice.nodemy.vn${listTask?.attributes?.image?.data?.attributes?.url}`}  style={{width:200,height:200,position:"fixed",top:50,right:50 }}/> */}
                 <Button type="primary" onClick={()=>{
                     isEdit(false)
                 }}>Sửa</Button>
@@ -84,6 +82,7 @@ export default function DetailTask(){
                             title:""
                         })
                     }}>Reset</Button>
+                    {/* <img src={`https://backoffice.nodemy.vn${listTask?.attributes?.image?.data?.attributes?.url}`} alt="k co ảnh" style={{width:200,height:200,position:"fixed",top:50,right:50 }}/> */}
                 </Form>
             </>
             )}

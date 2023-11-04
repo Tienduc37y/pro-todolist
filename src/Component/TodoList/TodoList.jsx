@@ -1,12 +1,13 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { SearchOutlined } from '@ant-design/icons';
-import { List, Button, Input, Form ,notification, Modal} from 'antd';
+import { List, Button, Input, Form ,notification} from 'antd';
 import { Link } from "react-router-dom";
 export default function Todo(){
     var [listTask,setListTask] = useState([])
     const [edit,setEdit] = useState()
     const [idEdit,setId] = useState()
+    const [isAdd,setAdd] = useState(true)
     const [form] = Form.useForm()
     const token = localStorage.getItem('token')
     const [api, contextHolder] = notification.useNotification();
@@ -26,19 +27,24 @@ export default function Todo(){
         placement,
         });
     };
-    axios({
-        url:"https://backoffice.nodemy.vn/api/tasks?=&sort[0]=createdAt:desc",
-        method:"GET"
-    })
-    .then((res)=>{
-        setListTask(res.data.data)
-        // console.log(res.data.data)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
+    useEffect(()=>{
+        axios({
+            url:"https://backoffice.nodemy.vn/api/tasks?=&sort[0]=createdAt:desc",
+            method:"GET"
+        })
+        .then((res)=>{
+            let dataList = res.data.data
+            setListTask(dataList)
+            // console.log(res.data.data)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    },[isAdd])
+    
     function AddTask(values){
         console.log(values)
+        
         axios({
             url: "https://backoffice.nodemy.vn/api/tasks",
             method: "POST",
@@ -52,14 +58,19 @@ export default function Todo(){
         })
         .then((res)=>{
             // console.log(res.data.data)
-            setListTask([...listTask,res.data.data])
+            const AddData = res.data.data
+            
             setTimeout(()=>{
                 NotifySuccess('top','success','Thêm mới')
+                form.setFieldsValue({
+                    title:""
+                })
+                setListTask([...listTask,AddData])
+            },100)
+            setTimeout(()=>{
+                setAdd(!isAdd)
             },1000)
             // console.log(listTask)
-            form.setFieldsValue({
-                title:""
-            })
         })
         .catch((err)=>{
             NotifyError('top','error',"Thêm mới")
@@ -127,16 +138,14 @@ export default function Todo(){
         })
         .then((res)=>{
             setTimeout(()=>{
-                const newArray = listTask.map(item=>(item.id === res.data.data.id ? res.data.data : item))
+                var editData = res.data.data
+                const newArray = listTask.map(item=>(item.id === editData.id ? editData : item))
                 setListTask(newArray)
                 setEdit(edit+20)
             },1000)
             setTimeout(()=>{
                 NotifySuccess('top','success','Sửa')
             },1500)
-        })
-        .then((err)=>{
-            console.log("that bai")
         })
     }
     return (
@@ -157,8 +166,7 @@ export default function Todo(){
                         <Form.Item name="title">
                             <Input placeholder="Nhập data cần thêm"></Input>
                         </Form.Item>
-                        <Button type="primary" htmlType="submit" onClick={()=>{
-                        }}>Thêm</Button>
+                        <Button type="primary" htmlType="submit">Thêm</Button>
                 </Form>
                 <List
                     style={{marginTop:30}}
@@ -181,7 +189,7 @@ export default function Todo(){
                                                 <Input></Input>
                                             </Form.Item>
                                             <Button htmlType="submit">Update</Button>
-                                            <Button htmlType="submit" onClick={()=>{
+                                            <Button onClick={()=>{
                                                 setEdit(index + 20)
                                             }}>Cancel</Button>
                                         </Form>
