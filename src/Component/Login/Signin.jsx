@@ -51,18 +51,36 @@ export default function Signin(){
         }}>
             <h1>Đăng Ký</h1>
             <Form 
+                autoComplete="off"
                 name="Signin"
                 onFinish={onFinish}
                 >
-                <Form.Item name= "username" label= "Username">
+                <Form.Item hasFeedback name= "username" label= "Username"
+                    rules={[
+                        {
+                            min:6
+                        }
+                    ]}
+                    >
                     <Input style={{marginLeft:-10,width:300}} required></Input>
                 </Form.Item>
                 <br />
-                <Form.Item name="email" label="Email">
+                <Form.Item hasFeedback name="email" label="Email"
+                rules={[
+                    {
+                        type:"email",
+                    },
+                ]}
+                >
                     <Input style={{marginLeft:20,width:300}} required></Input>
                 </Form.Item>
                 <br />
-                <Form.Item name= "password" label= "Password">
+                <Form.Item hasFeedback name= "password" label= "Password" 
+                    rules={[
+                        {
+                        min:8,
+                        },
+                    ]}>
                     <Input.Password style={{marginLeft:-5,width:300}} required></Input.Password>
                 </Form.Item>
                 <br />

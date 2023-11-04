@@ -61,13 +61,14 @@ export default function Todo(){
             const AddData = res.data.data
             
             setTimeout(()=>{
-                NotifySuccess('top','success','Thêm mới')
+                
                 form.setFieldsValue({
                     title:""
                 })
                 setListTask([...listTask,AddData])
             },100)
             setTimeout(()=>{
+                NotifySuccess('top','success','Thêm mới')
                 setAdd(!isAdd)
             },1000)
             // console.log(listTask)
@@ -206,8 +207,7 @@ export default function Todo(){
                                             {edit !== index ?
                                             (
                                                 <>
-                                                    <Button onClick={()=>{
-                                                    }}>Xóa</Button>
+                                                    <Button>Xóa</Button>
                                                 </>
                                             ) :
                                             (
