@@ -157,14 +157,18 @@ export default function Todo(){
             <div style={{height:"100vh"}}>
                 <Link to="/" className="navlink">Home</Link>
                 <Form onFinish={SearchTask} className="todosearch">
-                    <Form.Item name="search">
+                    <Form.Item name="search" rules={[{
+                        min:1
+                    }]}>
                         <Input placeholder="Nhập data cần tìm kiếm"></Input>
                     </Form.Item>
                     <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
                     </Button>
                 </Form>
                 <Form onFinish={AddTask} className="todoform" form={form}>
-                        <Form.Item name="title">
+                        <Form.Item name="title" rules={[{
+                            min:1
+                        }]}>
                             <Input placeholder="Nhập data cần thêm"></Input>
                         </Form.Item>
                         <Button type="primary" htmlType="submit">Thêm</Button>
@@ -186,7 +190,9 @@ export default function Todo(){
                                 {edit === index ? (
                                     <>
                                         <Form onFinish={EditTask} style={{display:"flex",gap:35}}>
-                                            <Form.Item name="edit" initialValue={item.attributes.title}>
+                                            <Form.Item name="edit" initialValue={item.attributes.title} rules={[{
+                                                min:4
+                                            }]}>
                                                 <Input></Input>
                                             </Form.Item>
                                             <Button htmlType="submit">Update</Button>
