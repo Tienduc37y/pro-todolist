@@ -1,10 +1,11 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { Button, Form, Input} from "antd"
 
 export default function DetailTask(){
     const params = useParams()
+    const nav = useNavigate()
     const [form] = Form.useForm()
     const [listTask,setListTask] = useState()
     const [editTask,isEdit] = useState(true)
@@ -58,6 +59,9 @@ export default function DetailTask(){
                 <Button type="primary" onClick={()=>{
                     isEdit(false)
                 }}>Sửa</Button>
+                <Button style={{marginLeft:20}} onClick={()=>{
+                    nav(`/todolist`)
+                }}>Back</Button>
             </>
             ):
             (

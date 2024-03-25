@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { SearchOutlined } from '@ant-design/icons';
 import { List, Button, Input, Form ,notification} from 'antd';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import moment from 'moment';
 export default function Todo(){
     var [listTask,setListTask] = useState([])
@@ -10,6 +10,7 @@ export default function Todo(){
     const [idEdit,setId] = useState()
     const [isAdd,setAdd] = useState(true)
     const [form] = Form.useForm()
+    const nav = useNavigate()
     const token = localStorage.getItem('token')
     const [api, contextHolder] = notification.useNotification();
     const NotifySuccess = (placement,type,typeTask) => {
@@ -206,8 +207,11 @@ export default function Todo(){
                                                 setId(item.id)
                                             }}>Sửa</Button>
                                             <Button onClick={()=>{
-                                                        DeleteTask(item.id)
+                                                DeleteTask(item.id)
                                             }}>Xóa</Button>
+                                            <Button onClick={()=>{
+                                                nav(`/task/${item?.id}`)
+                                            }}>Chi Tiết</Button>
                                         </div>
                                 </>      
                             )}
