@@ -32,14 +32,12 @@ export default function Signin(){
             },
         })
         .then((res)=>{
-            console.log(res.data)
             NotifySuccess('top','success')
             setTimeout(()=>{
                 navigate("/login")
             },2000)
         })
         .catch((err)=>{
-            console.log(values)
             NotifyError('top','error')
         })
     }
@@ -78,7 +76,7 @@ export default function Signin(){
                 <Form.Item hasFeedback name= "password" label= "Password" 
                     rules={[
                         {
-                        min:8,
+                        min:6,
                         },
                     ]}>
                     <Input.Password style={{marginLeft:-5,width:300}} required></Input.Password>

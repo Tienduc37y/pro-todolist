@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { SearchOutlined } from '@ant-design/icons';
 import { List, Button, Input, Form ,notification} from 'antd';
 import { Link } from "react-router-dom";
+import moment from 'moment';
 export default function Todo(){
     var [listTask,setListTask] = useState([])
     const [edit,setEdit] = useState()
@@ -35,7 +36,6 @@ export default function Todo(){
         .then((res)=>{
             let dataList = res.data.data
             setListTask(dataList)
-            // console.log(res.data.data)
         })
         .catch((err)=>{
             console.log(err)
@@ -43,7 +43,6 @@ export default function Todo(){
     },[isAdd])
     
     function AddTask(values){
-        console.log(values)
         
         axios({
             url: "https://backoffice.nodemy.vn/api/tasks",
@@ -57,7 +56,6 @@ export default function Todo(){
             },
         })
         .then((res)=>{
-            // console.log(res.data.data)
             const AddData = res.data.data
             
             setTimeout(()=>{
@@ -71,7 +69,6 @@ export default function Todo(){
                 NotifySuccess('top','success','Thêm mới')
                 setAdd(!isAdd)
             },1000)
-            // console.log(listTask)
         })
         .catch((err)=>{
             NotifyError('top','error',"Thêm mới")
@@ -105,25 +102,21 @@ export default function Todo(){
         })
         .then((res)=>{
             var searchTask = res.data.data
-            // console.log(searchTask)
             if(searchTask.length == 0) {
                 NotifyError('top','warning','Search')
                 setListTask([])
             }
             else {
                 NotifySuccess('top','success','Search')
-                // console.log(listTask)
                 setListTask(searchTask)
             }
         })
         .catch((err)=>{
             console.log("Search lỗi")
         })
-        console.log(listTask)
 
     }
     function EditTask(values){
-        console.log(values)
         axios({
             url:"https://backoffice.nodemy.vn/api/tasks/" + idEdit,
             method: "PUT",
@@ -185,9 +178,12 @@ export default function Todo(){
 
                     }}
                     renderItem={(item,index) => (
-                        <List.Item >
-                                <p>{item.id}</p>
-                                {edit === index ? (
+                        <List.Item>
+                            <p style={{width:200}}>{item.id}   
+                                <span style={{width:50,marginLeft:40}}>{moment(item?.attributes?.createdAt).format('DD/MM/YYYY HH:mm')}</span>
+                            </p>
+                            
+                            {edit === index ? (
                                     <>
                                         <Form onFinish={EditTask} style={{display:"flex",gap:35}}>
                                             <Form.Item name="edit" initialValue={item.attributes.title} rules={[{
@@ -201,32 +197,21 @@ export default function Todo(){
                                             }}>Cancel</Button>
                                         </Form>
                                     </>
-                                ) : (
-                                    <>
+                            ) : (
+                                <>
                                         <p>{item.attributes.title}</p>
                                         <div className="btn-display">
                                             <Button onClick={()=>{
-                                                // console.log(index)
                                                 setEdit(index)
                                                 setId(item.id)
                                             }}>Sửa</Button>
-                                            {edit !== index ?
-                                            (
-                                                <>
-                                                    <Button>Xóa</Button>
-                                                </>
-                                            ) :
-                                            (
-                                                <>
-                                                    <Button onClick={()=>{
+                                            <Button onClick={()=>{
                                                         DeleteTask(item.id)
-                                                    }}>Xóa</Button>
-                                                </>
-                                            )}
+                                            }}>Xóa</Button>
                                         </div>
-                                    </>
-                                    
-                                )}
+                                </>      
+                            )}
+                                
                                 
                         </List.Item>
                     )  

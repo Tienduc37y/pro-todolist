@@ -32,7 +32,6 @@ export default function Login(){
             },
         })
         .then((res)=>{
-            console.log(res.data)
             localStorage.setItem('token',res.data.jwt)
             localStorage.setItem('user',res.data.user.username)
             NotifySuccess('top','success')
